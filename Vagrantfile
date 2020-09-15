@@ -5,13 +5,13 @@
 # configures the configuration version (we support older styles for
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
+
+# Vagrant Version
 Vagrant.configure(2) do |config|
-  # The most common configuration options are documented and commented below.
-  # For a complete reference, please see the online documentation at
-  # https://docs.vagrantup.com.
 
   # Every Vagrant development environment requires a box. You can search for
-  # boxes at https://atlas.hashicorp.com/search.
+  # boxes at https://vagrantcloud.com/search.
+  # Vagrant Cloud에서 이미지를 다운로드 및 실행
   config.vm.box = "ubuntu/xenial64"
 
   # Disable automatic box update checking. If you disable this, then
@@ -22,8 +22,7 @@ Vagrant.configure(2) do |config|
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
-
-  # 웹 서버를 사용하기 위한 포트 설정
+  # Port Forwarding 웹 서버를 사용하기 위한 포트 설정
   config.vm.network "forwarded_port", guest: 8080, host: 8080, host_ip: "127.0.0.1"
   config.vm.network "forwarded_port", guest: 8989, host: 8989, host_ip: "127.0.0.1"
   config.vm.network "forwarded_port", guest: 6767, host: 6767, host_ip: "127.0.0.1"
@@ -46,14 +45,13 @@ Vagrant.configure(2) do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
  
-
-  # 본인 경로에 맞춰서 수정
+  # 공유 폴더 설정 - 본인 경로에 맞춰서 수정
   config.vm.synced_folder "/Users/user/Documents/repos", "/home/vagrant/dev/repos"
   
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
-  #
+  # 가상 머신 provider 지정 및 하드웨어 설정
   config.vm.provider "virtualbox" do |vb|
   #   # Display the VirtualBox GUI when booting the machine
   #   vb.gui = true
@@ -63,7 +61,6 @@ Vagrant.configure(2) do |config|
      vb.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root", "1"]
   end
 
-  #
   # View the documentation for the provider you are using for more
   # information on available options.
  
@@ -77,6 +74,7 @@ Vagrant.configure(2) do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
+  # provision 설정
   config.vm.provision "shell", inline: <<-SHELL
      sudo apt-get update
      sudo apt-get install -y curl
